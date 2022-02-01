@@ -1,7 +1,8 @@
+
+"use strict";
+
 function solveEquation(a, b, c) {
-  // let arr;
   // // код для задачи №1 писать здесь
-  // return arr; // array
   let D = b**2-4*a*c
   let x0 = -b/(2*a)
   let x1 = (-b + Math.sqrt(D) )/(2*a)
@@ -23,8 +24,15 @@ function solveEquation(a, b, c) {
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
   let totalAmount;
-
+ 
   // код для задачи №2 писать здесь
-
-  return totalAmount;
+  if (typeof percent !== 'number'||
+      typeof contribution !== 'number'||
+      typeof amount !== 'number'||
+      typeof date !== 'number'
+      )
+  return 'not number'
+  // return totalAmount;
 }
+
+console.log(calculateTotalMortgage(1, 2, 3, 4))
