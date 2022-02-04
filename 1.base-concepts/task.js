@@ -23,6 +23,19 @@ function solveEquation(a, b, c) {
 }
   // код для задачи №2 писать здесь
 function calculateTotalMortgage(percent, contribution, amount, date) {
+  percent+0;
+  contribution+0;
+  amount+0;
+  console.log (typeof contribution)
+  if (isNaN(percent)){
+      return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`
+    }
+    else if (isNaN(contribution)){
+      return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`
+    }
+    else if (isNaN(amount)){
+      return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`
+    }
   let totalAmount;
   let date2 = new Date(date)
   let date1 = new Date()
@@ -33,8 +46,9 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   console.log(`Срок кредита - ${n} месяцев`)
   console.log(`Ежемесячный платеж составит - ${monthPay.toFixed(2)} руб.`)
   totalAmount = monthPay * n
-  return `Общая сумма которую придется запалатить составит - ${totalAmount.toFixed(2)} руб.`
+  
+  return Number(totalAmount.toFixed(2))
 
 }
 
-console.log(calculateTotalMortgage(10, 1000, 50000, '2023.02.01.'))
+console.log(calculateTotalMortgage(10, '1000', 50000, '2023.02.01.'))
