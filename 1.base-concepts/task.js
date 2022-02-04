@@ -51,4 +51,3 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
 }
 
-console.log(calculateTotalMortgage(10, '1000', 50000, '2023.02.01.'))
