@@ -80,14 +80,21 @@ class Library {
       return console.log(`Книга в плохом состоянии, попробуйте восстановаить книгу`)
     }
   }
-  findBookBy(key, value) {
-    let book = leninaLib.find(item => item.title == key && item.autor == value)
-    if (book != undefined){
-      return book
+  findBookBy(type, value) {
+    let book = this.books.find(obj => obj[type] === value)
+    // console.log(book)
+    if(book){
+      return console.log(book)
     }
-    else {
-      return null
+    else{
+      return console.log(null)
     }
+  }
+  giveBookByName(bookName) {
+    let book = this.books.findIndex(obj => obj['name'] == bookName)
+    if(book == -1) {return null}
+    let deletedBook = this.books.splice(book, 1)
+    return deletedBook
   }
 }
 
@@ -129,7 +136,10 @@ const leninaLib = new Library("Библиотека имени Ленина")
 // console.log(leninaLib)
 
 // lenin1.currentState = 20
-// leninaLib.addBook(lenin1)
-// leninaLib.addBook(varAndPice)
-// console.log(leninaLib)
-leninaLib.findBookBy(key, value)
+leninaLib.addBook(lenin1)
+leninaLib.addBook(varAndPice)
+console.log(leninaLib)
+// leninaLib.findBookBy('autor', "Ленин")
+console.log('Вам выдана книга', '\n', leninaLib.giveBookByName('Война и мир'))
+console.log(leninaLib)
+
