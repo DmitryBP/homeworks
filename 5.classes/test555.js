@@ -22,7 +22,17 @@ class Student {
   let avearageBySubjekt = (this.classBook[indexAverejeBySubject].marks.reduce((sum, current) => sum + current))/this.classBook[indexAverejeBySubject].marks.length
   return console.log(avearageBySubjekt)
   }
-  
+  getAverageByAllSubject() {
+    let averegeMarks = [];
+    
+    this.classBook.forEach((obj, index) => {
+      let currentSubjekt = this.classBook[index].subjekt
+      // console.log(obj, '-->', currentSubjekt)
+      this.getAverage('art')
+
+    })
+    return averegeMarks 
+  }
 }
 /////////////////////////////////////////////////
 const dima = new Student("Dima", "man", 35)
@@ -31,12 +41,13 @@ dima.addMark(3, 'algebra')
 dima.addMark(4, 'Geometry')
 dima.addMark(4, 'History')
 dima.addMark(5, 'art')
-dima.addMark(2, 'art')
+dima.addMark(9, 'art')
 dima.addMark(5, 'History')
 dima.getAverage('art')
+console.log(dima.getAverageByAllSubject()) 
 /////////////////////////////////////////////////
 
-console.log(dima)
+// console.log(dima)
 // console.log(dima.classBook) 
 
 // console.log(dima)
