@@ -143,3 +143,63 @@ console.log(leninaLib)
 console.log('Вам выдана книга', '\n', leninaLib.giveBookByName('Война и мир'))
 console.log(leninaLib)
 
+//Задача №3. Журнал успеваемости
+
+
+class Student {
+  constructor (name, gender, age) {
+    this.name = name;
+    this.gender = gender;
+    this.age = age;
+    this.classBook = [];
+  }
+  addMark(mark, subjekt) {
+    if (mark < 1 || mark > 5) {
+      return console.log ('ОШИБКА! Введите оценку от 1 до 5')
+    }else{
+      let subjektIndex = this.classBook.findIndex(obj => obj.subjekt === subjekt)
+      if(subjektIndex == -1) {
+        this.classBook.push({
+          subjekt: subjekt,
+          marks: [mark]
+        });
+      } else {
+        this.classBook[subjektIndex].marks.push(mark) // добавляем оценку к предмету
+      }
+    }
+    
+  }
+  //Метод для возвращения среднего бала
+  getAverage(subjekt) {
+  let indexAverejeBySubject = this.classBook.findIndex(obj => obj.subjekt == subjekt)
+  let avearageBySubjekt = (this.classBook[indexAverejeBySubject].marks.reduce((sum, current) => sum + current))/this.classBook[indexAverejeBySubject].marks.length
+  return avearageBySubjekt
+  }
+  getAverageByAllSubject() {
+    let averegeMarks = [];
+    this.classBook.forEach((obj, index, mas) => {
+      let currentSubjekt = this.classBook[index].subjekt
+      // console.log(obj, '-->', currentSubjekt)
+      averegeMarks.push(this.getAverage(currentSubjekt))
+
+    })
+    return (averegeMarks.reduce((sum, current) => sum + current, 0))/averegeMarks.length;
+  }
+}
+/////////////////////////////////////////////////
+const dima = new Student("Dima", "man", 35)
+/////////////////////////////////////////////////
+dima.addMark(0, 'algebra')
+dima.addMark(9, 'Geometry')
+dima.addMark(4, 'History')
+dima.addMark(5, 'art')
+dima.addMark(4, 'art')
+dima.addMark(5, 'History')
+dima.getAverage('art')
+console.log(dima.getAverageByAllSubject()) 
+/////////////////////////////////////////////////
+
+// console.log(dima)
+console.log(dima.classBook) 
+
+// console.log(dima)
