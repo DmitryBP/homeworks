@@ -80,6 +80,15 @@ class Library {
       return console.log(`Книга в плохом состоянии, попробуйте восстановаить книгу`)
     }
   }
+  findBookBy(key, value) {
+    let book = leninaLib.find(item => item.title == key && item.autor == value)
+    if (book != undefined){
+      return book
+    }
+    else {
+      return null
+    }
+  }
 }
 
 const bq = new Magazine('masha', 1996, 99)
@@ -119,7 +128,8 @@ const leninaLib = new Library("Библиотека имени Ленина")
 // console.log(picknick)
 // console.log(leninaLib)
 
-lenin1.currentState = 20
-leninaLib.addBook(lenin1)
-leninaLib.addBook(varAndPice)
-console.log(leninaLib)
+// lenin1.currentState = 20
+// leninaLib.addBook(lenin1)
+// leninaLib.addBook(varAndPice)
+// console.log(leninaLib)
+leninaLib.findBookBy(key, value)
