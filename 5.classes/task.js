@@ -1,68 +1,77 @@
 class PrintEditionItem {
-  constructor(name, relaseDate, pagesCount) {
+  constructor(name, releaseDate, pagesCount) {
     this.name = name;
-    this.relaseDate = relaseDate;
+    this.releaseDate = releaseDate;
     this.pagesCount = pagesCount;
     this.state = 100;
     this.type = null;
   }
 
-  get fix() {
-    return this.state *= 1.5;
+  fix() {
+    this.state *= 1.5;
   }
 
-  set currentState(newState) {
-    if (newState < 0) {
-      this.state = 0;
-    }
-    else if (newState > 100) {
-      this.state = 100;
-    }
-    else {
-      this.state = newState;
-    }
-  }
+  // set state(newState) {
+  //   if (newState < 0) {
+  //     this._state = 0;
+  //   }
+  //   else if (newState > 100) {
+  //     this._state = 100;
+  //   }
+  //   else {
+  //     this._state = newState;
+  //   }
+  // }
 
-  get readState() {
-    return `Книга изношена на - ${this.state}%` 
-  }
+  // get state() {
+  //   return this._state;
+  // }
 }
 
 class Magazine extends PrintEditionItem {
-  constructor(name, relaseDate, pagesCount) {
-    super(name, relaseDate, pagesCount)
+  constructor(name, releaseDate, pagesCount) {
+    super(name, releaseDate, pagesCount)
     this.type = "magazine"
   }
 }
 
 class Book extends PrintEditionItem {
-  constructor(autor, name, relaseDate, pagesCount) {
-    super(name, relaseDate, pagesCount)
-    this.autor = autor
+  constructor(author, name, releaseDate, pagesCount) {
+    super(name, releaseDate, pagesCount)
     this.type = 'book'
+    this.author = author
   }
 }
 
 class NovelBook extends Book {
-  constructor(autor, name, relaseDate, pagesCount) {
-    super(autor, name, relaseDate, pagesCount) 
+  constructor(author, name, releaseDate, pagesCount) {
+    super(author, name, releaseDate, pagesCount) 
     this.type = 'novel'
   }
 }
 
 class FantasticBook extends Book {
-  constructor(autor, name, relaseDate, pagesCount) {
-    super(autor, name, relaseDate, pagesCount) 
+  constructor(author, name, releaseDate, pagesCount) {
+    super(author, name, releaseDate, pagesCount) 
     this.type = 'fantastic'
   }
 }
 
 class DetectiveBook extends Book {
-  constructor(autor, name, relaseDate, pagesCount) {
-    super(autor, name, relaseDate, pagesCount) 
+  constructor(author, name, releaseDate, pagesCount) {
+    super(author, name, releaseDate, pagesCount) 
     this.type = 'detective'
   }
 }
+const varAndPice = new Book(
+  'Лев Николаевич Толстой', 
+  'Война и мир',
+  1869,
+  1300
+  )
+
+  varAndPice.fix()
+console.log(varAndPice)
 
 // Задача №2. Библиотека
 
@@ -84,10 +93,10 @@ class Library {
     let book = this.books.find(obj => obj[type] === value)
     // console.log(book)
     if(book){
-      return console.log(book)
+      return book
     }
     else{
-      return console.log(null)
+      return null
     }
   }
   giveBookByName(bookName) {
@@ -102,12 +111,6 @@ const bq = new Magazine('masha', 1996, 99)
 
 const book1 = new PrintEditionItem('vasia')
 
-const varAndPice = new Book(
-  'Лев Николаевич Толстой', 
-  'Война и мир',
-  1869,
-  1256,
-  )
 
 const picknick = new FantasticBook(
   "Аркадий и Борис Стругацкие",
@@ -136,12 +139,12 @@ const leninaLib = new Library("Библиотека имени Ленина")
 // console.log(leninaLib)
 
 // lenin1.currentState = 20
-leninaLib.addBook(lenin1)
-leninaLib.addBook(varAndPice)
-console.log(leninaLib)
-// leninaLib.findBookBy('autor', "Ленин")
-console.log('Вам выдана книга', '\n', leninaLib.giveBookByName('Война и мир'))
-console.log(leninaLib)
+// leninaLib.addBook(lenin1)
+// leninaLib.addBook(varAndPice)
+// console.log(leninaLib)
+// // leninaLib.findBookBy('author', "Ленин")
+// console.log('Вам выдана книга', '\n', leninaLib.giveBookByName('Война и мир'))
+// console.log(leninaLib)
 
 //Задача №3. Журнал успеваемости
 
@@ -189,17 +192,17 @@ class Student {
 /////////////////////////////////////////////////
 const dima = new Student("Dima", "man", 35)
 /////////////////////////////////////////////////
-dima.addMark(0, 'algebra')
-dima.addMark(9, 'Geometry')
-dima.addMark(4, 'History')
-dima.addMark(5, 'art')
-dima.addMark(4, 'art')
-dima.addMark(5, 'History')
-dima.getAverage('art')
-console.log(dima.getAverageByAllSubject()) 
+// dima.addMark(0, 'algebra')
+// dima.addMark(9, 'Geometry')
+// dima.addMark(4, 'History')
+// dima.addMark(5, 'art')
+// dima.addMark(4, 'art')
+// dima.addMark(5, 'History')
+// dima.getAverage('art')
+// console.log(dima.getAverageByAllSubject()) 
 /////////////////////////////////////////////////
 
 // console.log(dima)
-console.log(dima.classBook) 
+// console.log(dima.classBook) 
 
 // console.log(dima)
