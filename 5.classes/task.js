@@ -11,21 +11,21 @@ class PrintEditionItem {
     this.state *= 1.5;
   }
 
-  // set state(newState) {
-  //   if (newState < 0) {
-  //     this._state = 0;
-  //   }
-  //   else if (newState > 100) {
-  //     this._state = 100;
-  //   }
-  //   else {
-  //     this._state = newState;
-  //   }
-  // }
+  set state(newState) {
+    if (newState < 0) {
+      this._state = 0;
+    }
+    else if (newState > 100) {
+      this._state = 100;    
+    }
+    else {
+      this._state = newState;
+    }
+  }
+  get state() {
+    return this._state;
+  }
 
-  // get state() {
-  //   return this._state;
-  // }
 }
 
 class Magazine extends PrintEditionItem {
@@ -42,6 +42,8 @@ class Book extends PrintEditionItem {
     this.author = author
   }
 }
+
+
 
 class NovelBook extends Book {
   constructor(author, name, releaseDate, pagesCount) {
@@ -69,9 +71,11 @@ const varAndPice = new Book(
   1869,
   1300
   )
-
+  
   varAndPice.fix()
-console.log(varAndPice)
+  varAndPice.state = 135
+  // console.log(varAndPice.state)
+  // console.log(varAndPice)
 
 // Задача №2. Библиотека
 
@@ -103,7 +107,7 @@ class Library {
     let book = this.books.findIndex(obj => obj['name'] == bookName)
     if(book == -1) {return null}
     let deletedBook = this.books.splice(book, 1)
-    return deletedBook
+    return deletedBook[0]
   }
 }
 
@@ -159,7 +163,7 @@ class Student {
   addMark(mark, subjekt) {
     if (mark < 1 || mark > 5) {
       return console.log ('ОШИБКА! Введите оценку от 1 до 5')
-    }else{
+    } else {
       let subjektIndex = this.classBook.findIndex(obj => obj.subjekt === subjekt)
       if(subjektIndex == -1) {
         this.classBook.push({
@@ -173,17 +177,17 @@ class Student {
     
   }
   //Метод для возвращения среднего бала
-  getAverage(subjekt) {
+  getAverageBySubject(subjekt) {
   let indexAverejeBySubject = this.classBook.findIndex(obj => obj.subjekt == subjekt)
   let avearageBySubjekt = (this.classBook[indexAverejeBySubject].marks.reduce((sum, current) => sum + current))/this.classBook[indexAverejeBySubject].marks.length
   return avearageBySubjekt
   }
-  getAverageByAllSubject() {
+  getAverage() {
     let averegeMarks = [];
     this.classBook.forEach((obj, index, mas) => {
       let currentSubjekt = this.classBook[index].subjekt
       // console.log(obj, '-->', currentSubjekt)
-      averegeMarks.push(this.getAverage(currentSubjekt))
+      averegeMarks.push(this.getAverageBySubject(currentSubjekt))
 
     })
     return (averegeMarks.reduce((sum, current) => sum + current, 0))/averegeMarks.length;
@@ -194,15 +198,15 @@ const dima = new Student("Dima", "man", 35)
 /////////////////////////////////////////////////
 // dima.addMark(0, 'algebra')
 // dima.addMark(9, 'Geometry')
-// dima.addMark(4, 'History')
-// dima.addMark(5, 'art')
-// dima.addMark(4, 'art')
+dima.addMark(4, 'History')
+dima.addMark(5, 'art')
+dima.addMark(4, 'art')
 // dima.addMark(5, 'History')
 // dima.getAverage('art')
 // console.log(dima.getAverageByAllSubject()) 
 /////////////////////////////////////////////////
 
 // console.log(dima)
-// console.log(dima.classBook) 
+console.log(dima.classBook) 
 
 // console.log(dima)
