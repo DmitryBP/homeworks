@@ -23,39 +23,26 @@ class AlarmClock {
     }
   }
   getCurrentFormattedTime() {
-    const date = new Date
-    let hours = 0;
-    if (date.getHours() < 10) {
-      hours = `0${date.getHours()}`
-      return `${hours}:${date.getMinutes()}`
-    }
-    else {
-      return `${date.getHours()}:${date.getMinutes()}`
-    }
+    const date = new Date().toLocaleTimeString("ru-Ru", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return date;
   }
   start() {
-    // let checkClock = () => { 
-
-    // };
-    // let setInterval = () => {
-
-    // }
-    
-    // this.timerId = setInterval();
-
-    if (this.timerId == null){
-      this.timerId = 1
-    }else if(this.timerId == 1) {
-      this.timerId++
+    console.log ('Будильник запущен')
+    let checkClock = () => {
+      this.alarmCollection.forEach((clock, item) => {
+      
+        if(this.alarmCollection[item].time == this.getCurrentFormattedTime()){
+         console.log (this.alarmCollection[item].callback)
+        }
+      })
     }
-    console.log(`Внимание все будильники включены`, `Номер таймера: ${this.timerId}`)
-    this.alarmCollection.forEach((clock, item) => {
-      if (this.alarmCollection[item].time == alarm1.getCurrentFormattedTime()) {
-        return console.log(this.alarmCollection[item].callback)
-      }
-    }) 
-  }
-
+    if (this.timerId == null){
+      this.timerId = setInterval(checkClock, 60000);
+     }
+    }
 
   printAlarms() {
     console.log(`Печать всех будильников в количестве: ${this.alarmCollection.length}`)
@@ -68,14 +55,17 @@ class AlarmClock {
 let alarm1 = new AlarmClock
 
 //test
-alarm1.addClock("23:23", () => console.log('сработал будильник 1'), '1')
-alarm1.addClock("12:35", () => console.log('сработал будильник 2'), "2")
-alarm1.addClock("12:35", () => console.log('сработал будильник 3'), "3")
+alarm1.addClock("02:06", () => console.log('сработал будильник 1'), '1')
+alarm1.addClock("02:02", () => console.log('сработал будильник 2'), "2")
+alarm1.addClock("01:43", () => console.log('сработал будильник 3'), "3")
 alarm1.removeClock("02")
+console.log (alarm1.getCurrentFormattedTime())
 alarm1.start()
-alarm1.start()
+
 alarm1.printAlarms()
-console.log(alarm1.getCurrentFormattedTime())
+
+
+
 // console.log(alarm1) 
 
 
