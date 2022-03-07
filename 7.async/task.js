@@ -31,42 +31,50 @@ class AlarmClock {
   }
   start() {
     console.log ('Будильник запущен')
-    let checkClock = () => {
-      this.alarmCollection.forEach((clock, item) => {
-      
-        if(this.alarmCollection[item].time == this.getCurrentFormattedTime()){
-         console.log (this.alarmCollection[item].callback)
+    let checkClocks = () => {
+      console.log('тик-так')
+      this.alarmCollection.forEach((clock) => {
+        if(clock.time == this.getCurrentFormattedTime()){
+          clock.callback()
         }
       })
     }
     if (this.timerId == null){
-      this.timerId = setInterval(checkClock, 60000);
+      this.timerId = setInterval(checkClocks, 1000);
      }
+  }
+  stop() {
+    if (this.timerId !== null) {
+    // остановить вывод через 5 секунд
+    setTimeout(() => { 
+      clearInterval(this.timerId); 
+      console.log('Будильник остановлен');
+      }, 5000);
+      this.timerId = null; 
     }
-
+  }
   printAlarms() {
     console.log(`Печать всех будильников в количестве: ${this.alarmCollection.length}`)
     this.alarmCollection.forEach(obj => console.log(
       `Будильник №${obj.id} заведен на ${obj.time} ` 
       ))
   }
+  clearAlarms() {
+    this.stop();
+    this.alarmCollection = []
+  }
 } 
 
 let alarm1 = new AlarmClock
 
 //test
-alarm1.addClock("02:06", () => console.log('сработал будильник 1'), '1')
-alarm1.addClock("02:02", () => console.log('сработал будильник 2'), "2")
-alarm1.addClock("01:43", () => console.log('сработал будильник 3'), "3")
-alarm1.removeClock("02")
-console.log (alarm1.getCurrentFormattedTime())
-alarm1.start()
-
-alarm1.printAlarms()
-
-
-
-// console.log(alarm1) 
-
-
-// console.log (alarm1.alarmCollection[0].time == alarm1.getCurrentFormattedTime())
+alarm1.addClock("22:48", () => console.log('сработал будильник 1'), '1')
+alarm1.addClock("22:49", () => console.log('сработал будильник 2'), "2")
+alarm1.addClock("22:50", () => console.log('сработал будильник 3'), "3")
+// alarm1.removeClock("02")
+// console.log (alarm1.getCurrentFormattedTime())
+// console.log (alarm1)
+// alarm1.start()
+// alarm1.clearAlarms()
+// console.log (alarm1)
+// alarm1.printAlarms()
