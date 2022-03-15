@@ -43,12 +43,41 @@
   //Задача 2 
 
 
-const sendSignal = () => console.log("Сигнал отправлен"); // исходная функция
+// const sendSignal = () => console.log("Сигнал отправлен"); // исходная функция
 
-function debounceDecoratorNew(f, ms) { 
+// function debounceDecoratorNew(f, ms) { 
+//     let timeout;
+//     let flag = false;
+//     function wrapper (...args) {
+//       if(!flag) {
+//         f(...args)
+//         flag = true;
+//       }
+//       else {
+//         clearTimeout(timeout)
+//         timeout = setTimeout(()=>f(...args), ms)
+//       }
+//     } 
+//     return wrapper;
+// }
+// const upgradedSendSignal = debounceDecoratorNew(sendSignal, 2000);
+// setTimeout(upgradedSendSignal); // Сигнал отправлен
+// setTimeout(upgradedSendSignal, 300); // проигнорировано так как от последнего вызова прошло менее 2000мс (300 - 0 < 2000)
+// setTimeout(upgradedSendSignal, 900); // проигнорировано так как времени от последнего вызова прошло: 900-300=600 (600 < 2000)
+// setTimeout(upgradedSendSignal, 1200); // проигнорировано так как времени от последнего вызова прошло: 1200-900=300 (300 < 2000)
+// setTimeout(upgradedSendSignal, 2300); // проигнорировано так как времени от последнего вызова прошло: 2300-1200=1100 (1100 < 2000)
+// setTimeout(upgradedSendSignal, 4400); // Сигнал отправлен так как времени от последнего вызова прошло: 4400-2300=2100 (2100 > 2000)
+// setTimeout(upgradedSendSignal, 4500); // Сигнал будет отправлен, так как последний вызов debounce декоратора (спустя 4500 + 2000 = 6500) 6,5с
+
+// Задача 3 
+
+const sendSignal2 = () => console.log("Сигнал отправлен"); // исходная функция
+
+function debounceDecorator2(f, ms) { 
     let timeout;
     let flag = false;
     function wrapper (...args) {
+      console.log(wrapper.history)
       if(!flag) {
         f(...args)
         flag = true;
@@ -57,10 +86,12 @@ function debounceDecoratorNew(f, ms) {
         clearTimeout(timeout)
         timeout = setTimeout(()=>f(...args), ms)
       }
+      wrapper.history.push(args); 
     } 
+    wrapper.history = [];
     return wrapper;
 }
-const upgradedSendSignal = debounceDecoratorNew(sendSignal, 2000);
+const upgradedSendSignal = debounceDecorator2(sendSignal2, 2000);
 setTimeout(upgradedSendSignal); // Сигнал отправлен
 setTimeout(upgradedSendSignal, 300); // проигнорировано так как от последнего вызова прошло менее 2000мс (300 - 0 < 2000)
 setTimeout(upgradedSendSignal, 900); // проигнорировано так как времени от последнего вызова прошло: 900-300=600 (600 < 2000)
@@ -68,9 +99,19 @@ setTimeout(upgradedSendSignal, 1200); // проигнорировано так �
 setTimeout(upgradedSendSignal, 2300); // проигнорировано так как времени от последнего вызова прошло: 2300-1200=1100 (1100 < 2000)
 setTimeout(upgradedSendSignal, 4400); // Сигнал отправлен так как времени от последнего вызова прошло: 4400-2300=2100 (2100 > 2000)
 setTimeout(upgradedSendSignal, 4500); // Сигнал будет отправлен, так как последний вызов debounce декоратора (спустя 4500 + 2000 = 6500) 6,5с
+console.log(upgradedSendSignal.history)
 
 
-// Подсказка 1
-// Вызывайте переданную функцию немедленно и взводите флаг.
-// Подсказка 2
-// Используйте setTimeout для снятия флага и при каждом вызове проверяйте, взведен ли он.
+// const add = (a, b) => a + b;
+// function spyDecorator(func) {
+//   function wrapper(...args) {
+//     wrapper.history.push(args);
+//     return func.call(this, ...args);
+//     }
+//   wrapper.history = [];  // почему мы можем так сделать?
+//   return wrapper;
+// }
+// const upgradedAdd = spyDecorator(add);
+// upgradedAdd(100, 200);
+// upgradedAdd(1, 1);
+// console.log(upgradedAdd.history); // [100,200] , [1,1]
